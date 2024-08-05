@@ -23,7 +23,7 @@ const options = {
 function pingGlitchForever() {
   setInterval(() => {
     https.get(
-      `https://telforward.onrender.com`,
+      `https://testingtelegram-h770.onrender.com`,
       options,
       (res) => {
         console.log(`Response status: ${res.statusCode}`);
