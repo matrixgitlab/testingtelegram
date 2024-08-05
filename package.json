@@ -1,7 +1,7 @@
 {
   "scripts": {
     "postinstall": "./install-chrome.sh",
-    "start": "node your-app.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^1.7.2",
