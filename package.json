@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "puppeteer": "^22.12.1",
+    "@mtproto/core": "6.3.0",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "https": "^1.0.0",
+    "node-tdlib": "^0.0.0",
+    "prompts": "^2.4.2",
+    "tdl": "^8.0.1",
+    "tdlib": "^0.0.0-alpha.0"
+  }
+}
