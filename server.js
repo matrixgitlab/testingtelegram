@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
         console.log('User login : ', user);
         console.log('Already logged in as', user.phone);
         needLogin = false;
+         // Abonnement aux mises à jour des messages
+          const state = await call(mtproto, 'updates.getState');
+      
+          console.log('Abonnement aux mises à jour des messages réussi.', state);
       } catch (error) {
         // Si l'erreur est liée à une session invalide, afficher un message approprié
         if (error.error_code === 401) {
