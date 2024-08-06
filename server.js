@@ -125,8 +125,8 @@ app.get('/', (req, res) => {
        // Appel de la fonction pour écouter les messages d'un channel
         
         
-       listenToChannel(mtproto, '1422584932', '17914210768829744941'); //Alixpress offres "ALIEXPRESS DDP"
-        listenToChannel(mtproto, '2241905730', '10105394089190905980'); //Express4UChannel
+       listenToChannel(mtproto, '1422584932', '17914210768829744941', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
+        listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
         
       
       console.log('Listening for updates...');
@@ -296,25 +296,25 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
 };
 
 // Fonction pour écouter les messages d'un channel
-const listenToChannel = async (mtproto, chatId, accessHash) => {
+const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
   let offsetId = 0;
 
   while (true) {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
-    console.log('Messages history : ', history);
+    console.log('Messages history ', msg,' : ', history);
 
     if (history && history.messages && history.messages.length > 0) {
       const message = history.messages[0];
 
       // Afficher un message spécifique lorsqu'un nouveau message est reçu
-      console.log('Nouveau message reçu:', message.message);
+      console.log('Nouveau message reçu ', msg,' : ', message.message);
 
       // Mettre à jour offsetId pour écouter les nouveaux messages
       offsetId = message.id + 1;
     }
 
     // Attendre avant de vérifier les nouveaux messages
-    await new Promise(resolve => setTimeout(resolve, 10000));
+    await new Promise(resolve => setTimeout(resolve, 60000));
   }
 };
 
