@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
    
       // Commencer à écouter les messages reçus
       mtproto.updates.on('updates', async (updateInfo) => {
-          
+          console.log('Updates Message : ', updateInfo);
           for (const update of updateInfo.updates) {
             if (update._ === 'updateNewChannelMessage') {
               
