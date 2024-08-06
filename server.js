@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
       mtproto.updates.on("updateShortChatMessage", console.log)
       mtproto.updates.on("updateShortMessage", console.log)
       mtproto.updates.on("updateShortSentMessage", console.log)
-      mtproto.updates.on("updates", console.log)
+     // mtproto.updates.on("updates", console.log)
       mtproto.updates.on("updatesCombined", console.log)
       mtproto.updates.on("updatesTooLong", console.log)
       
