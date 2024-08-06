@@ -314,7 +314,7 @@ const listenToChannel = async (mtproto, chatId, accessHash) => {
     }
 
     // Attendre avant de vérifier les nouveaux messages
-    await sleep(60000);
+    await new Promise(resolve => setTimeout(resolve, 10000));
   }
 };
 
