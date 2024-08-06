@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
         const me = await call(mtproto, 'users.getFullUser', { id: { _: 'inputUserSelf' } });
         const user = me.users;
         
-        console.log('Already logged in as', user.first_name);
+        console.log('Already logged in as', user._);
         needLogin = false;
          // Abonnement aux mises à jour des messages
           const state = await call(mtproto, 'updates.getState');
@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
    
       // Commencer à écouter les messages reçus
       mtproto.updates.on('updates', async (updateInfo) => {
-          console.log('Update Informations : ', updateInfo.updates)
+          console.log('Update Informations : ', updateInfo)
           for (const update of updateInfo.updates) {
             if (update._ === 'updateNewChannelMessage') {
               
