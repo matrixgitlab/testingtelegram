@@ -24,13 +24,12 @@ app.get('/', (req, res) => {
         // Vérifier si la session existe déjà
         const me = await call(mtproto, 'users.getFullUser', { id: { _: 'inputUserSelf' } });
         const user = me.users;
-        console.log('User login : ', user);
-        console.log('Already logged in as', user.phone);
+        
+        console.log('Already logged in as', user.first_name);
         needLogin = false;
          // Abonnement aux mises à jour des messages
           const state = await call(mtproto, 'updates.getState');
       
-          console.log('Abonnement aux mises à jour des messages réussi.', state);
       } catch (error) {
         // Si l'erreur est liée à une session invalide, afficher un message approprié
         if (error.error_code === 401) {
@@ -51,7 +50,7 @@ app.get('/', (req, res) => {
    
       // Commencer à écouter les messages reçus
       mtproto.updates.on('updates', async (updateInfo) => {
-          
+          console.log('Update Informations : ', updateInfo.updates)
           for (const update of updateInfo.updates) {
             if (update._ === 'updateNewChannelMessage') {
               
