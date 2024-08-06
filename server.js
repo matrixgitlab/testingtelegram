@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
       try {
         // Vérifier si la session existe déjà
         const me = await call(mtproto, 'users.getFullUser', { id: { _: 'inputUserSelf' } });
+        console.log('User login : ', me);
         const user = me.users;
         console.log('Already logged in as', user.phone);
         needLogin = false;
@@ -42,10 +43,11 @@ app.get('/', (req, res) => {
   
       // Votre logique après connexion
       console.log('You are now connected to Telegram!');
+       
    
       // Commencer à écouter les messages reçus
       mtproto.updates.on('updates', async (updateInfo) => {
-          console.log('Updates Message : ', updateInfo);
+          
           for (const update of updateInfo.updates) {
             if (update._ === 'updateNewChannelMessage') {
               
