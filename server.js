@@ -126,7 +126,7 @@ app.get('/', (req, res) => {
         
         
        listenToChannel(mtproto, '1422584932', '17914210768829744941', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
-        listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
+        //listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
         
       
       console.log('Listening for updates...');
@@ -301,7 +301,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
 
   while (true) {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
-    console.log('Messages history ', msg,' : ', history);
+    //console.log('Messages history ', msg,' : ', history);
 
     if (history && history.messages && history.messages.length > 0) {
       const message = history.messages[0];
@@ -314,7 +314,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
     }
 
     // Attendre avant de vérifier les nouveaux messages
-    await new Promise(resolve => setTimeout(resolve, 60000));
+    await new Promise(resolve => setTimeout(resolve, 240000));
   }
 };
 
