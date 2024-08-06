@@ -296,7 +296,7 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
 };
 
 // Fonction pour écouter les messages d'un channel
-const listenToChannel = async (chatId, accessHash) => {
+const listenToChannel = async (mtproto, chatId, accessHash) => {
   let offsetId = 0;
 
   while (true) {
