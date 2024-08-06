@@ -46,6 +46,18 @@ app.get('/', (req, res) => {
   
       // Votre logique après connexion
       console.log('You are now connected to Telegram!');
+      mtproto.updates.on("updateShort", console.log)
+      mtproto.updates.on("updateShortChatMessage", console.log)
+      mtproto.updates.on("updateShortMessage", console.log)
+      mtproto.updates.on("updateShortSentMessage", console.log)
+      mtproto.updates.on("updates", console.log)
+      mtproto.updates.on("updatesCombined", console.log)
+      mtproto.updates.on("updatesTooLong", console.log)
+      
+      // call getState to start receiving updates
+      mtproto.call("updates.getState").then(function(state) {
+        console.log("state", state)
+      })
        
    
       // Commencer à écouter les messages reçus
