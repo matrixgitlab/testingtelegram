@@ -125,7 +125,7 @@ app.get('/', (req, res) => {
        // Appel de la fonction pour écouter les messages d'un channel
         
         
-       // listenToChannel(mtproto, '1422584932', '17914210768829744941'); //Alixpress offres "ALIEXPRESS DDP"
+       listenToChannel(mtproto, '1422584932', '17914210768829744941'); //Alixpress offres "ALIEXPRESS DDP"
         listenToChannel(mtproto, '2241905730', '10105394089190905980'); //Express4UChannel
         
       
@@ -303,7 +303,7 @@ const listenToChannel = async (mtproto, chatId, accessHash) => {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     console.log('Messages history : ', history);
 
-   /* if (history && history.messages && history.messages.length > 0) {
+    if (history && history.messages && history.messages.length > 0) {
       const message = history.messages[0];
 
       // Afficher un message spécifique lorsqu'un nouveau message est reçu
@@ -314,7 +314,7 @@ const listenToChannel = async (mtproto, chatId, accessHash) => {
     }
 
     // Attendre avant de vérifier les nouveaux messages
-    await sleep(5000);*/
+    await sleep(60000);
   }
 };
 
