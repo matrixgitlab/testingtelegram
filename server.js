@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
    
       // Commencer à écouter les messages reçus
       mtproto.updates.on('updates', async (updateInfo) => {
-          console.log('Update Informations : ', updateInfo)
+          //console.log('Update Informations : ', updateInfo)
           for (const update of updateInfo.updates) {
             if (update._ === 'updateNewChannelMessage') {
               
@@ -120,10 +120,17 @@ app.get('/', (req, res) => {
         mtproto.updates.on('updateNewMessage', (updateInfo) => {
           console.log('New message received');//, updateInfo
         });
+
+
+       // Appel de la fonction pour écouter les messages d'un channel
+        
+        
+        listenToChannel(mtproto, '1422584932', '17914210768829744941'); //Alixpress offres "ALIEXPRESS DDP"
+        listenToChannel(mtproto, '2241905730', '10105394089190905980'); //Express4UChannel
+        
       
-        console.log('Listening for updates...');
-  
-  
+      console.log('Listening for updates...');
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -268,6 +275,48 @@ async function processUrls(text) {
   }
   
 }
+///////////////////////////////////////////////////////////////////////////////
+/////// Fonction pour obtenir l'historique des messages d'un channel //////////
+const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
+  try {
+    const history = await call(mtproto, 'messages.getHistory', {
+      peer: {
+        _: 'inputPeerChannel',
+        channel_id: chatId,
+        access_hash: accessHash,
+      },
+      offset_id: offsetId,
+      limit: 1,
+    });
+    return history;
+  } catch (error) {
+    console.error('Error getting history:', error);
+    return null;
+  }
+};
+
+// Fonction pour écouter les messages d'un channel
+const listenToChannel = async (chatId, accessHash) => {
+  let offsetId = 0;
+
+  while (true) {
+    const history = await getHistory(mtproto, chatId, accessHash, offsetId);
+    console.log('Messages history : ', history);
+
+   /* if (history && history.messages && history.messages.length > 0) {
+      const message = history.messages[0];
+
+      // Afficher un message spécifique lorsqu'un nouveau message est reçu
+      console.log('Nouveau message reçu:', message.message);
+
+      // Mettre à jour offsetId pour écouter les nouveaux messages
+      offsetId = message.id + 1;
+    }
+
+    // Attendre avant de vérifier les nouveaux messages
+    await sleep(5000);*/
+  }
+};
 
 
 // ping glitch forever
