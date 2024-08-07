@@ -138,7 +138,7 @@ app.get('/', (req, res) => {
         
         
        //listenToChannel(mtproto, '1422584932', '17914210768829744941', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
-        //listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
+        listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
         
       
       console.log('Listening for updates...');
@@ -298,7 +298,7 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
         access_hash: accessHash,
       },
       offset_id: offsetId,
-      limit: 1,
+      limit: 30,
     });
     return history;
   } catch (error) {
@@ -311,22 +311,24 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
 const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
   let offsetId = 0;
 
-  while (true) {
+     let lastTimestamp = Math.floor(Date.now() / 1000) - 60;
+
+   while (true) {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     //console.log('Messages history ', msg,' : ', history);
-
     if (history && history.messages && history.messages.length > 0) {
-      const message = history.messages[0];
+      history.messages.forEach(message => {
+        if (message.date > lastTimestamp) {
+          console.log('Nouveau message reçu ', msg,' : ', message.message);
+        }
+      });
 
-      // Afficher un message spécifique lorsqu'un nouveau message est reçu
-      console.log('Nouveau message reçu ', msg,' : ', message.message);
-
-      // Mettre à jour offsetId pour écouter les nouveaux messages
-      offsetId = message.id + 1;
+      // Mettre à jour le timestamp du dernier message vérifié
+      lastTimestamp = Math.max(...history.messages.map(msg => msg.date));
     }
 
     // Attendre avant de vérifier les nouveaux messages
-    await new Promise(resolve => setTimeout(resolve, 240000));
+    await new Promise(resolve => setTimeout(resolve, 60000));
   }
 };
 
