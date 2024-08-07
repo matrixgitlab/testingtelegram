@@ -137,7 +137,7 @@ app.get('/', (req, res) => {
        // Appel de la fonction pour écouter les messages d'un channel
         
         
-       //listenToChannel(mtproto, '1422584932', '17914210768829744941', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
+       listenToChannel(mtproto, '1422584932', '17914210768829744941', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
         listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
         
       
@@ -310,21 +310,25 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
 // Fonction pour écouter les messages d'un channel
 const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
   let offsetId = 0;
-
+      const seenMessageIds = new Set();
      let lastTimestamp = Math.floor(Date.now() / 1000) - 60;
 
    while (true) {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     //console.log('Messages history ', msg,' : ', history);
-    if (history && history.messages && history.messages.length > 0) {
-      history.messages.forEach(message => {
-        if (message.date > lastTimestamp) {
-          console.log('Nouveau message reçu ', msg,' : ', message.message);
-        }
+    const newMessages = history.messages.filter(message => {
+        return message.date > lastTimestamp && !seenMessageIds.has(message.id);
       });
 
-      // Mettre à jour le timestamp du dernier message vérifié
-      lastTimestamp = Math.max(...history.messages.map(msg => msg.date));
+      if (newMessages.length > 0) {
+        newMessages.forEach(message => {
+          console.log('Nouveau message reçu :', message.message);
+          seenMessageIds.add(message.id);
+        });
+
+        // Mettre à jour le timestamp du dernier message vérifié
+        lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
+      }
     }
 
     // Attendre avant de vérifier les nouveaux messages
