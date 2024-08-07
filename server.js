@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
         console.log('Successfully logged in!');
       }
   
-      // Votre logique après connexion
+      /* Votre logique après connexion
       console.log('You are now connected to Telegram!');
       mtproto.updates.on("updateShort", console.log)
       mtproto.updates.on("updateShortChatMessage", console.log)
@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
       // call getState to start receiving updates
       mtproto.call("updates.getState").then(function(state) {
         console.log("state", state)
-      })
+      })*/
        
    
       // Commencer à écouter les messages reçus
