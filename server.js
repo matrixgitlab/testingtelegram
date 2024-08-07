@@ -298,7 +298,7 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
         access_hash: accessHash,
       },
       offset_id: offsetId,
-      limit: 30,
+      limit: 1,
     });
     return history;
   } catch (error) {
