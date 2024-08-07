@@ -137,7 +137,7 @@ app.get('/', (req, res) => {
        // Appel de la fonction pour écouter les messages d'un channel
         
         
-       listenToChannel(mtproto, '1422584932', '17914210768829744941', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
+       listenToChannel(mtproto, '1541264588', '4920282426198513526', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
         listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
         
       
@@ -330,7 +330,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           console.log('Nouveau message reçu :', message.message);
           seenMessageIds.add(message.id);
         });
-          console.log('Messages history ', msg,' : ', history);
+          console.log('Messages history ', msg,' : ', newMessages);
         // Mettre à jour le timestamp du dernier message vérifié
         lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
       }
