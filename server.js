@@ -298,7 +298,7 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
         access_hash: accessHash,
       },
       offset_id: offsetId,
-      limit: 1,
+      limit: 5,
     });
     return history;
   } catch (error) {
@@ -330,7 +330,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           console.log('Nouveau message reçu :', newMessages.message);
           seenMessageIds.add(newMessages.id);
         //});
-          console.log('Messages history ', msg,' : ', newMessages);
+          console.log('Messages history ', msg,' : ', seenMessageIds);
         // Mettre à jour le timestamp du dernier message vérifié
         lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
       }
