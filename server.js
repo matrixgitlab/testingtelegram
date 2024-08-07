@@ -315,20 +315,22 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
 
    while (true) {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
-    //console.log('Messages history ', msg,' : ', history);
+    
 
 
      if (history && history.messages && history.messages.length > 0) {
+       
       const newMessages = history.messages.filter(message => {
         return message.date > lastTimestamp && !seenMessageIds.has(message.id);
       });
 
       if (newMessages.length > 0) {
+        
         newMessages.forEach(message => {
           console.log('Nouveau message reçu :', message.message);
           seenMessageIds.add(message.id);
         });
-
+          console.log('Messages history ', msg,' : ', history);
         // Mettre à jour le timestamp du dernier message vérifié
         lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
       }
