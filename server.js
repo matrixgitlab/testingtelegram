@@ -330,7 +330,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           console.log('Nouveau message reçu :', message.message);
           seenMessageIds.add(message.id);
         });
-          console.log('Messages history ', msg,' : ', newMessages);
+          console.log('Messages history ', msg,' : ', seenMessageIds);
         // Mettre à jour le timestamp du dernier message vérifié
         lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
       }
