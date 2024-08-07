@@ -329,7 +329,6 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
         // Mettre à jour le timestamp du dernier message vérifié
         lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
       }
-    }
 
     // Attendre avant de vérifier les nouveaux messages
     await new Promise(resolve => setTimeout(resolve, 60000));
