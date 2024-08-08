@@ -309,15 +309,14 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
 
 // Fonction pour écouter les messages d'un channel
 const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
-  let offsetId = 0;
+      let offsetId = 0;
       const seenMessageIds = new Set();
-     let lastTimestamp = Math.floor(Date.now() / 1000) - 60;
+      let lastTimestamp = Math.floor(Date.now() / 1000) - 60;
 
    while (true) {
+     try {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     
-
-
      if (history && history.messages && history.messages.length > 0) {
       
        
@@ -325,20 +324,29 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
         return message.date > lastTimestamp && !seenMessageIds.has(message.id);
       });
 
-      if (newMessages.length > 0) {
-        
-        newMessages.forEach(message => {
-          console.log('Nouveau message reçu :', message.message);
-          seenMessageIds.add(newMessages.id);
-        });
-          
-        // Mettre à jour le timestamp du dernier message vérifié
-        lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
+    if (newMessages.length > 0) {
+          newMessages.forEach(message => {
+            console.log('Nouveau message reçu :', message.message);
+            seenMessageIds.add(message.id);
+          });
+          console.log('Messages history ', msg, ' : ', history);
+          lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
+        }
+
+        offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
       }
-     }
-    // Attendre avant de vérifier les nouveaux messages
+    } catch (error) {
+      if (error.error_message.startsWith('FLOOD_WAIT')) {
+        const waitTime = parseInt(error.error_message.split('_').pop(), 10);
+        console.error(`FLOOD_WAIT, waiting for ${waitTime} seconds`);
+        await new Promise(resolve => setTimeout(resolve, waitTime * 10000));
+      } else {
+        console.error('Error getting history:', error);
+      }
+    }
+
     await new Promise(resolve => setTimeout(resolve, 60000));
-  }
+}
 };
 
 
