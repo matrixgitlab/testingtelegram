@@ -328,9 +328,12 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           newMessages.forEach(message => {
             console.log('Nouveau message reçu :', message.message);
             seenMessageIds.add(message.id);
+            console.log('seenMessage Ids ', msg, ' : ', seenMessageIds);
+
           });
           //console.log('Messages history ', msg, ' : ', history);
           lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
+       console.log('last Timestamp ', msg, ' : ', lastTimestamp);
         }
 
        // offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
