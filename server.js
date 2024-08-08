@@ -333,13 +333,13 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
         }
 
-        offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
+       // offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
       }
     } catch (error) {
       if (error.error_message.startsWith('FLOOD_WAIT')) {
-        const waitTime = parseInt(error.error_message.split('_').pop(), 10);
+        const waitTime = 10000; //parseInt(error.error_message.split('_').pop(), 10);
         console.error(`FLOOD_WAIT, waiting for ${waitTime} seconds`);
-        await new Promise(resolve => setTimeout(resolve, waitTime * 10000));
+        await new Promise(resolve => setTimeout(resolve, waitTime));
       } else {
         console.error('Error getting history:', error);
       }
