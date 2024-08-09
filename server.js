@@ -312,8 +312,9 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
       let offsetId = 0;
       const seenMessageIds = new Set();
       let lastTimestamp = Math.floor(Date.now() / 1000) - 60;
+      const test = true;
 
-   while (true) {
+   while (test) {
      try {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     
@@ -332,6 +333,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
             console.log('seenMessage Ids ', msg, ' : ', seenMessageIds);
 
           });
+           test = false;
           //console.log('Messages history ', msg, ' : ', history);
           lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
        console.log('last Timestamp ', msg, ' : ', lastTimestamp);
@@ -340,7 +342,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
        // offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
       }
     } catch (error) {
-      if (error.error_message.startsWith('FLOOD_WAIT')) {
+      if (error.error_code == "420") {
         const waitTime = 10000; //parseInt(error.error_message.split('_').pop(), 10);
         console.error(`FLOOD_WAIT, waiting for ${waitTime} seconds`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
