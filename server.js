@@ -312,9 +312,8 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
       let offsetId = 0;
       const seenMessageIds = new Set();
       let lastTimestamp = Math.floor(Date.now() / 1000) - 60;
-      const test = true;
 
-   while (test) {
+   while (true) {
      try {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     
@@ -330,10 +329,9 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           newMessages.forEach(message => {
             console.log('Nouveau message reçu :', message.message);
             seenMessageIds.add(message.id);
-            console.log('seenMessage Ids ', msg, ' : ', seenMessageIds);
+            console.log('message ids ', msg, ' : ', message.id );
 
           });
-           test = false;
           //console.log('Messages history ', msg, ' : ', history);
           lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
        console.log('last Timestamp ', msg, ' : ', lastTimestamp);
