@@ -332,7 +332,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           
            // console.log('message ids ', msg, ' : ', message.id );
         lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
-          });
+          }
         //console.log('Messages history ', msg, ' : ', history);
           
        //console.log('last Timestamp ', msg, ' : ', lastTimestamp);
