@@ -323,6 +323,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
         return message.date > lastTimestamp; //&& !seenMessageIds.has(message.id);
         });
        console.log(newMessages);
+        lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
        
     /*  const newMessages = history.messages.filter(message => {
         return message.date > lastTimestamp && !seenMessageIds.has(message.id);
