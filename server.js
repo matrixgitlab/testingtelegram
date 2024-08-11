@@ -318,9 +318,11 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     
      if (history && history.messages && history.messages.length > 0) {
-      
        
-      const newMessages = history.messages.filter(message => {
+      const msgs = history.messages;
+       console.log(msgs);
+       
+    /*  const newMessages = history.messages.filter(message => {
         return message.date > lastTimestamp && !seenMessageIds.has(message.id);
       });
           newMessages.forEach(message => {
@@ -328,14 +330,10 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
             seenMessageIds.add(message.id);
           });
        if (newMessages.length > 0) {
-           // console.log('newMessages length :', newMessages.length);
-          
-           // console.log('message ids ', msg, ' : ', message.id );
+           
         lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
           }
-        //console.log('Messages history ', msg, ' : ', history);
-          
-       //console.log('last Timestamp ', msg, ' : ', lastTimestamp);
+        */
    
        // offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
       }
