@@ -320,7 +320,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
      if (history && history.messages && history.messages.length > 0) {
        
       const newMessages = history.messages.filter(message => {
-        return message.date > lastTimestamp && !seenMessageIds.has(message.id);
+        return message.date > lastTimestamp && !seenMessageIds.has(message.message);
         });
        
        
@@ -332,9 +332,9 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
        if (newMessages.length > 0) {
          
                 newMessages.forEach(message => {
-                      if (!seenMessageIds.has(message.id)) {
+                      if (!seenMessageIds.has(message.message)) {
                         console.log('Nouveau message reçu :', message.message);
-                        seenMessageIds.add(message.id);
+                        seenMessageIds.add(message.message);
                       }
                   });
                      
