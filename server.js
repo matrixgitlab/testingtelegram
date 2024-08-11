@@ -323,22 +323,21 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
         return message.date > lastTimestamp && !seenMessageIds.has(message.id);
         });
        
-       console.log(newMessages);
-        lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
-       seenMessageIds.add(message.id);
+       
        
     /*  const newMessages = history.messages.filter(message => {
         return message.date > lastTimestamp && !seenMessageIds.has(message.id);
-      });
-          newMessages.forEach(message => {
-            console.log('Nouveau message reçu :', message.message);
-            seenMessageIds.add(message.id);
-          });
+      });*/
+          
        if (newMessages.length > 0) {
-           
-        lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
+                 newMessages.forEach(message => {
+                      console.log('Nouveau message reçu :', message.message);
+                      seenMessageIds.add(message.id);
+                    });
+                     
+                 lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
           }
-        */
+      
    
        // offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
       }
