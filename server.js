@@ -303,7 +303,7 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
     return history;
   } catch (error) {
     console.error('Error getting history:', error);
-    return null;
+    return error;
   }
 };
 
