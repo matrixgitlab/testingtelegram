@@ -330,7 +330,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
       });*/
           
        if (newMessages.length > 0) {
-         
+         console.log('newMessages length', newMessages.length);
          console.log('Nouveau message reçu :', newMessages);
               /*  newMessages.forEach(message => {
                       if (!seenMessageIds.has(message.message)) {
