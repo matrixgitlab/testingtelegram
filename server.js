@@ -318,7 +318,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
     const history = await getHistory(mtproto, chatId, accessHash, offsetId);
     
      if (history && history.messages && history.messages.length > 0) {
-       console.log('Nouveau message reçu :', history.messages);
+       
        
       const newMessages = history.messages.filter(message => {
         return message.date > lastTimestamp && !seenMessageIds.has(message.message);
@@ -331,6 +331,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
       });*/
           
        if (newMessages.length > 0) {
+         console.log('Nouveau message reçu :', history.messages);
          //console.log('newMessages length', newMessages.length);
          //console.log('Nouveau message reçu :', newMessages);
               /*  newMessages.forEach(message => {
