@@ -303,7 +303,7 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
     return history;
   } catch (error) {
     console.error('Error getting history:', error);
-    return error;
+    return null;
   }
 };
 
@@ -352,7 +352,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
        // offsetId = Math.max(...history.messages.map(msg => msg.id)) + 1;
       }
     } catch (error) {
-      if (error.error_code == "420") {
+      if (error == "null") {
         const waitTime = 10000; //parseInt(error.error_message.split('_').pop(), 10);
         console.error(`FLOOD_WAIT, waiting for ${waitTime} seconds`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
