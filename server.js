@@ -331,12 +331,13 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
           
        if (newMessages.length > 0) {
          
+         console.log('Nouveau message reçu :', newMessages);
               /*  newMessages.forEach(message => {
                       if (!seenMessageIds.has(message.message)) {
                         console.log('Nouveau message reçu :', message.message);
                         seenMessageIds.add(message.message);
                       }
-                  });*/
+                  });
          const length = newMessages.length - 1;
          for (let i = 0; i < length; i++) {
                   const message = newMessages[i];
@@ -344,7 +345,7 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
                         console.log('Nouveau message reçu :', message.message);
                         seenMessageIds.add(message.id);
                       }
-                }
+                }*/
                      
                  lastTimestamp = Math.max(...newMessages.map(msg => msg.date));
           }
