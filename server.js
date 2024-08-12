@@ -337,8 +337,9 @@ const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
                         seenMessageIds.add(message.message);
                       }
                   });*/
-         for (let i = 1; i < newMessages.length; i++) {
-                  const message = newMessages[i-1];
+         const length = newMessages.length - 1;
+         for (let i = 0; i < length; i++) {
+                  const message = newMessages[i];
                   if (!seenMessageIds.has(message.id)) {
                         console.log('Nouveau message reçu :', message.message);
                         seenMessageIds.add(message.id);
