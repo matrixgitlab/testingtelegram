@@ -137,8 +137,8 @@ app.get('/', (req, res) => {
        // Appel de la fonction pour écouter les messages d'un channel
         
         
-       listenToChannel(mtproto, '1541264588', '4920282426198513526', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
-        listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
+       //listenToChannel(mtproto, '1541264588', '4920282426198513526', "ALIEXPRESS DDP"); //Alixpress offres "ALIEXPRESS DDP"
+        //listenToChannel(mtproto, '2241905730', '10105394089190905980', "Express4UChannel"); //Express4UChannel
         
       
       console.log('Listening for updates...');
