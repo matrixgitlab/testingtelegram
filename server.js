@@ -307,6 +307,28 @@ const getHistory = async (mtproto, chatId, accessHash, offsetId = 0) => {
   }
 };
 
+// Fonction pour récupérer les chats
+async function getAllChats(myproto, id) {
+  while (true) {
+    try {
+      const { chats } = await call(mtproto, 'messages.getChats', {
+        id: id, // Remplacez par les IDs de vos chats
+      });
+  
+      console.log('Chats récupérés :');
+      //chats.forEach(chat => {
+        console.log(`Chat ID: ${chat.id}, Title: ${chat.title}`);
+      //});
+  
+      //listenForMessages();
+    } catch (error) {
+      console.error('Erreur lors de la récupération des chats:', error);
+    }
+      await new Promise(resolve => setTimeout(resolve, 60000));
+
+  }
+}
+
 // Fonction pour écouter les messages d'un channel
 const listenToChannel = async (mtproto, chatId, accessHash, msg) => {
       let offsetId = 0;
